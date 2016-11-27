@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core">
+<head>
+<title>Index Page</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+<link rel="stylesheet" href="assets/css/main.css" />
+<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+</head>
+<body>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header"> </header>
+
+		<!-- Main -->
+		<div id="main">
+			<article>
+				
+				<h2>Escribe tus datos:</h2>
+				<h:form>
+					Nombre: <h:inputText value="#{userBean.user.firstName}"></h:inputText>
+					Apellido: <h:inputText value="#{userBean.user.lastName}"></h:inputText>
+					<h:commandButton value="Validar nombre" action="#{userBean.add}"></h:commandButton>
+				</h:form>
+				<h:form>
+					<h:commandButton value="IR A VOTAR HORA DE DESCANSO" action="descanso.xhtml"></h:commandButton>
+				</h:form>
+				
+			</article>
+
+
+		</div>
+
+	</div>
+
+	<h:dataTable value="#{indexBean.usersList}" var="user">
+
+		<h:column>
+			<f:facet name="header">Nombre</f:facet>
+		#{user.firstName}
+	</h:column>
+
+		<h:column>
+			<f:facet name="header">Apellido</f:facet>
+		#{user.lastName}
+	</h:column>
+	
+	<h:column>
+			<f:facet name="header">IP</f:facet>
+		#{user.ip}
+	</h:column>
+	
+	<h:column>
+			<f:facet name="header">¿Ha votado?</f:facet>
+		#{user.voted}
+	</h:column>
+
+
+	</h:dataTable>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.poptrox.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="assets/js/main.js"></script>
+
+</body>
+</html>
