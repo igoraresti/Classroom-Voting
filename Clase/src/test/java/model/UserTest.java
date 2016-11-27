@@ -9,7 +9,7 @@ public class UserTest {
 	
 	User user;
     String nullString = null;
-	/*
+	
 	@Before
 	public void setUp() {
 	    user = new User ("Thomas", "Brown");
@@ -25,6 +25,6 @@ public class UserTest {
 		assertEquals(true, true);
 	}
 	
-	*/
+	
 
 }
