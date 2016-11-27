@@ -4,3 +4,5 @@ src/.DS_Store
 .metadata/
 /Users/
 .project
+.settings
+.DS_Store
