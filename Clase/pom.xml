@@ -46,7 +46,7 @@
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
 		</dependency>
-		
+
 		<!-- Provided by Tomcat, but needed for compilation -->
 		<dependency>
 			<groupId>javax</groupId>
@@ -69,6 +69,24 @@
 			<version>4.9</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Primefaces dependency -->
+		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>5.3</version>
+		</dependency>
+
+
+		<!-- JFReeChart dependency -->
+		<!-- https://mvnrepository.com/artifact/jfree/jfreechart -->
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.13</version>
+		</dependency>
+
 	</dependencies>
 
 </project>

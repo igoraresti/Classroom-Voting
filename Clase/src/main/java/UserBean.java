@@ -46,9 +46,9 @@ public class UserBean implements Serializable  {
 	
 	public void vote(){
 		if(user.isVoted() == false){
-			database.sumVote(user.getTime());
+			if(database.sumVote(user.getTime()))
+				user.setVoted(true);
 			database.addUser(user);
-			user.setVoted(true);
 		}
 	}
 	

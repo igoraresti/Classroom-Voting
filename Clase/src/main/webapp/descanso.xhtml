@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:c="http://java.sun.com/jsf/core">
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <head>
 <title>Descanso Page</title>
 <meta charset="utf-8" />
@@ -35,6 +36,9 @@
 					</h:selectOneRadio>
 					<h:commandButton value="VOTA" action="#{userBean.vote}"></h:commandButton>
 				</h:form>
+				<h:form>
+					<h:commandButton value="VOLVER A ÍNDICE" action="index.xhtml"></h:commandButton>
+				</h:form>
 			</article>
 
 		</div>
@@ -60,19 +64,23 @@
 			<f:facet name="header">IP</f:facet>
 		#{voted.ip}
 	</h:column>
-	<h:column>
+		<h:column>
 			<f:facet name="header">ID</f:facet>
 		#{voted.id}
 	</h:column>
-	<h:column>
+		<h:column>
 			<f:facet name="header">Nombre</f:facet>
 		#{voted.firstName}
 	</h:column>
-	<h:column>
+		<h:column>
 			<f:facet name="header">Apellido</f:facet>
 		#{voted.lastName}
 	</h:column>
 	</h:dataTable>
+
+	<h2>Gráfico elección horario</h2>
+	<p:graphicImage value="#{graphicImageViewBean.pieChart}" stream="false" />
+	<p:graphicImage value="#{graphicImageViewBean.barChart}" stream="false" />
 
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>

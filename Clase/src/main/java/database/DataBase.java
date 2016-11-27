@@ -15,7 +15,6 @@ public class DataBase {
 	
 	private static List<User> usersList = new ArrayList<User>();;
 	private static List<FreeTime> votesList = new ArrayList<FreeTime>();
-	
 
 	private DataBase() {
 		usersList.add(new User("Usuario", "Prueba"));
@@ -51,12 +50,18 @@ public class DataBase {
 		return usersList;
 	}
 
-	public void sumVote(String time) {
+	public boolean sumVote(String time) {
+		// Variable para controlar si el voto se ha sumado o no
+		boolean voteSuccess = false;
 		for(FreeTime f: votesList){
 			if(f.getTimeOptions().equals(time)){
 				f.setTimeVotes(f.getTimeVotes()+1);
+				voteSuccess = true;
 			}
 		}
+		
+		return voteSuccess;
+		
 	}
 	
 	public void addNewOption(FreeTime newOption){
