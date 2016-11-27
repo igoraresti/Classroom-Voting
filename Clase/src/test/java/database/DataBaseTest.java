@@ -12,7 +12,7 @@ import model.User;
 
 public class DataBaseTest {
 	
-	/*
+	
 	@Test
     public void should_be_able_to_get_single_user(){
     	DataBase database = DataBase.getInstance();
@@ -51,8 +51,6 @@ public class DataBaseTest {
     	database.getVote(0).setTimeVotes(database.getVote(0).getTimeVotes()+1);
     	assertEquals(numberVotes,database.getVote(0).getTimeVotes());
     }
-    
-    */
 
 
 }
