@@ -4,7 +4,7 @@
 	<groupId>iaresti</groupId>
 	<artifactId>Clase</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<dependencies>
 
