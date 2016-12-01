@@ -37,7 +37,6 @@ public class UserBean implements Serializable  {
 		database.addUser(user);
 	}
 	
-	
 	public String getWelcomeMessage(){
 		if(user.isVoted() == false){
 			return "Puedes votar";
@@ -53,5 +52,4 @@ public class UserBean implements Serializable  {
 			database.addUser(user);
 		}
 	}
-	
 }

@@ -1,78 +1,99 @@
 package database;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 import model.FreeTime;
 import model.User;
-
+import service.ReadWriteMap;
 
 public class DataBase {
-
-	private static final String hora1 = "12:30";
-	private static final String hora2 = "12:45";
-	private static final String hora3 = "13:00";
 	
-	private static List<User> usersList = new ArrayList<User>();;
-	private static List<FreeTime> votesList = new ArrayList<FreeTime>();
-
+	private static Map<String, User> userMap = new HashMap<>();
+	private static Map<String, FreeTime> freeTimeMap = new HashMap<>();
+	
+	private static ReadWriteMap<String, User> rwUserLocker = new ReadWriteMap<String, User>(userMap);
+	private static ReadWriteMap<String, FreeTime> rwFreeTimeLocker = new ReadWriteMap<String, FreeTime>(freeTimeMap);
+	
+	
 	private DataBase() {
-		usersList.add(new User("Usuario", "Prueba"));
+		//userMap.put("1", new User("Usuario", "Prueba"));
 		
-		votesList.add(new FreeTime(hora1, 0));
-		votesList.add(new FreeTime(hora2,0));
-		votesList.add(new FreeTime(hora3,0));
+		freeTimeMap.put(Data.ID_HORA1, new FreeTime(Data.HORA1, 0));
+		freeTimeMap.put(Data.ID_HORA2, new FreeTime(Data.HORA2, 0));
+		freeTimeMap.put(Data.ID_HORA3, new FreeTime(Data.HORA3, 0));
 	}
-	
+
 	public void clearAll() {
-		usersList.clear();
-		votesList.clear();
+		freeTimeMap.clear();
+		userMap.clear();
 	}
-	
+
 	private static class SingletonHolder {
-			private static final DataBase INSTANCE = new DataBase();
-    }
-
-    public static DataBase getInstance() {
-        return SingletonHolder.INSTANCE;
-    }
-
-	public void addUser(User user){
-		if(usersList.indexOf(user)==-1)
-			usersList.add(user);
-	}
-	
-	public User getUser(int index){
-		return usersList.get(index);
+		private static final DataBase INSTANCE = new DataBase();
 	}
 
+	public static DataBase getInstance() {
+		return SingletonHolder.INSTANCE;
+	}
+
+	// User methods
+
+	public User addUser(User user) {
+		final String id = user.getId() == null ? UUID.randomUUID().toString() : user.getId();
+		user.setId(id);
+		rwUserLocker.put(id, user);
+		return user;
+	}
+
+	/*
+	 * getUser method used for testing in DataBaseTest
+	 */
+
+	public User getUser(String id) {
+		return rwUserLocker.get(id);
+	}
+
+	/*
+	 * getUser needs synchronization
+	 */
 	public List<User> getUsers() {
-		return usersList;
+		return new ArrayList<User>(rwUserLocker.getAll());
 	}
+
+	/*
+	 * FreeTime methods
+	 */
+
+	/*
+	 * sumVote needs synchronization
+	 */
 
 	public boolean sumVote(String time) {
 		// Variable para controlar si el voto se ha sumado o no
 		boolean voteSuccess = false;
-		for(FreeTime f: votesList){
-			if(f.getTimeOptions().equals(time)){
+		for (FreeTime f : freeTimeMap.values()) {
+			if (f.getTimeOptions().equals(time)) {
 				f.setTimeVotes(f.getTimeVotes()+1);
+				rwFreeTimeLocker.put(time, f);
 				voteSuccess = true;
 			}
 		}
-		
 		return voteSuccess;
-		
-	}
-	
-	public void addNewOption(FreeTime newOption){
-		votesList.add(newOption);
 	}
 
-	public FreeTime getVote(int index){
-		return votesList.get(index);
+	/*
+	 * getVote method used for testing in DataBaseTest
+	 */
+	public FreeTime getVote(String id) {
+		return rwFreeTimeLocker.get(id);
 	}
-	public List<FreeTime> getVotes(){
-		return votesList;
+
+	/*
+	 * getVotes needs synchronization
+	 */
+	public List<FreeTime> getVotes() {
+		return new ArrayList<FreeTime>(rwFreeTimeLocker.getAll());
 	}
 
 }

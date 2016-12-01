@@ -38,9 +38,4 @@ public class TotalVotesBean implements Serializable {
 		}
 		return users;
 	}
-
-
-	
-
-	
 }

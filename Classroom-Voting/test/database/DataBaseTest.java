@@ -16,8 +16,9 @@ public class DataBaseTest {
 	@Test
     public void should_be_able_to_get_single_user(){
     	DataBase database = DataBase.getInstance();
-    	assertEquals("Usuario", database.getUser(0).getFirstName());
-    	assertEquals("Prueba", database.getUser(0).getLastName());
+    	User user = new User();
+    	database.addUser(user);
+    	assertEquals(user, database.getUser(user.getId()));
     }
 
     @Test
@@ -26,6 +27,7 @@ public class DataBaseTest {
     	List<User> usersList = database.getUsers();
     	User newUser = new User("Foo", "Bar");
     	usersList.add(newUser);
+    	database.addUser(newUser);
         assertEquals(usersList, database.getUsers());
     }
     
@@ -33,23 +35,22 @@ public class DataBaseTest {
     public void should_be_able_to_add_user(){
     	DataBase database = DataBase.getInstance();
     	User newUser = new User("Foo", "Bar");
-    	database.addUser(newUser);
-    	assertEquals(newUser.getFirstName(), database.getUser(1).getFirstName());
+    	assertEquals(database.addUser(newUser), newUser);
     }
     
     @Test
     public void should_be_able_to_get_single_vote(){
     	DataBase database = DataBase.getInstance();
-    	assertEquals(0,database.getVote(0).getTimeVotes());
+    	assertEquals(0,database.getVote(Data.ID_HORA1).getTimeVotes());
     }
     
     @Test
     public void should_be_able_to_sum_user_vote(){
     	DataBase database = DataBase.getInstance();
-    	int numberVotes = database.getVote(0).getTimeVotes();
+    	int numberVotes = database.getVote(Data.ID_HORA1).getTimeVotes();
     	numberVotes++;
-    	database.getVote(0).setTimeVotes(database.getVote(0).getTimeVotes()+1);
-    	assertEquals(numberVotes,database.getVote(0).getTimeVotes());
+    	database.getVote(Data.ID_HORA1).setTimeVotes(database.getVote(Data.ID_HORA1).getTimeVotes()+1);
+    	assertEquals(numberVotes,database.getVote(Data.ID_HORA1).getTimeVotes());
     }
 
 
